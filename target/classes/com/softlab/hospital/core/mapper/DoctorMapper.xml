@@ -91,7 +91,7 @@
   </select>
 
 
-  <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.DoctorVo" resultMap="BaseResultMap">
+  <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.Doctor" resultMap="BaseResultMap">
     select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,
            doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file,
            doc_tag
@@ -118,9 +118,6 @@
       <if test="docTag != null">
         and doc_tag = #{docTag,jdbcType=TINYINT}
       </if>
-        <if test="createTime != null and endTime != null">
-            and doc_date between #{createTime, jdbcType=VARCHAR} and #{endTime, jdbcType=VARCHAR}
-        </if>
     </where>
   </select>
 

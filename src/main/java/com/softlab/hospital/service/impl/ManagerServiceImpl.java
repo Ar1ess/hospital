@@ -4,7 +4,6 @@ import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
 import com.softlab.hospital.core.mapper.DoctorMapper;
-import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.service.ManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by LiXiwen on 2019/7/3 18:01.

@@ -29,7 +29,7 @@ public class User {
     private String userName;
 
     /**
-     *
+     * token
      */
     private String userToken;
 

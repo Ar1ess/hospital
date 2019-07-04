@@ -8,6 +8,7 @@ import com.softlab.hospital.common.util.VerifyUtil;
 import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.core.model.vo.UpList;
 import com.softlab.hospital.service.ManagerService;
+import com.softlab.hospital.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,12 @@ public class ManagerApi {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private final UserService userService;
     private final ManagerService managerService;
 
     @Autowired
-    public ManagerApi(ManagerService managerService) {
+    public ManagerApi(UserService userService, ManagerService managerService) {
+        this.userService = userService;
         this.managerService = managerService;
     }
 

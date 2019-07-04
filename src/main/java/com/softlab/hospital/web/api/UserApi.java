@@ -4,6 +4,7 @@ import com.softlab.hospital.common.ErrorMessage;
 import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
+import com.softlab.hospital.common.util.UploadUtil;
 import com.softlab.hospital.common.util.VerifyUtil;
 import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.service.UserService;
@@ -14,7 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -56,12 +61,21 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/doctor", method = RequestMethod.POST)
-    public RestData insertDoctor(@RequestParam MultipartFile file, @RequestBody Doctor doctor, HttpServletRequest request) throws HosExection{
+    public RestData insertDoctor(@RequestParam("file") MultipartFile file, @RequestBody Doctor doctor, HttpServletRequest request) throws Exception {
         logger.info("insert doctor: " + JsonUtil.getJsonString(doctor));
 
         if (VerifyUtil.VerifyLogin(request)){
             return new RestData(1, ErrorMessage.PLEASE_RELOGIN);
         }
+
+        //文件上传
+        String fileName = UploadUtil.upload(file);
+        doctor.setDocFile(fileName);
+
+        //日期上传
+        Date d = new Date();
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        doctor.setDocDate(f.format(d));
 
         return userService.insertDoctor(doctor);
     }
