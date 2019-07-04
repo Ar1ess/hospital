@@ -35,20 +35,45 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.softlab.hospital.core.model.Doctor">
     update doctor
-    set doc_province = #{docProvince,jdbcType=VARCHAR},
-      doc_city = #{docCity,jdbcType=VARCHAR},
-      doc_hospital = #{docHospital,jdbcType=VARCHAR},
-      doc_room = #{docRoom,jdbcType=VARCHAR},
-      doc_name = #{docName,jdbcType=VARCHAR},
-      doc_date = #{docDate,jdbcType=VARCHAR},
-      doc_phone = #{docPhone,jdbcType=VARCHAR},
-      doc_sum_patient = #{docSumPatient,jdbcType=BIGINT},
-      doc_inc_patient = #{docIncPatient,jdbcType=INTEGER},
-      doc_sum_money = #{docSumMoney,jdbcType=DOUBLE},
-      doc_inc_money = #{docIncMoney,jdbcType=DOUBLE},
-      doc_file = #{docFile,jdbcType=VARCHAR},
-      doc_tag = #{docTag,jdbcType=TINYINT}
-    where system_id = #{systemId,jdbcType=INTEGER}
+    set
+        <if test="docProvince != null and docProvince != ''">
+            doc_province = #{docProvince,jdbcType=VARCHAR},
+        </if>
+        <if test="docCity != '' and docCity != null">
+            doc_city = #{docCity,jdbcType=VARCHAR},
+        </if>
+        <if test="docHospital != '' and docHospital != null">
+            doc_hospital = #{docHospital,jdbcType=VARCHAR},
+        </if>
+        <if test="docRoom != '' and docRoom != null">
+            doc_room = #{docRoom,jdbcType=VARCHAR},
+        </if>
+        <if test="docPhone != '' and docPhone != null">
+            doc_phone = #{docPhone,jdbcType=VARCHAR},
+        </if>
+        <if test="docName != '' and docName != null">
+            doc_name = #{docName,jdbcType=VARCHAR},
+        </if>
+        <if test="docSumPatient != null">
+            doc_sum_patient = #{docSumPatient,jdbcType=BIGINT},
+        </if>
+        <if test="docIncPatient != null">
+            doc_inc_patient = #{docIncPatient,jdbcType=INTEGER},
+        </if>
+        <if test="docSumMoney != null">
+            doc_sum_money = #{docSumMoney,jdbcType=DOUBLE},
+        </if>
+        <if test="docIncMoney != null">
+            doc_inc_money = #{docIncMoney,jdbcType=DOUBLE},
+        </if>
+        <if test="docFile != null">
+            doc_file = #{docFile,jdbcType=VARCHAR},
+        </if>
+        <if test="docTag != null">
+            doc_tag = #{docTag,jdbcType=TINYINT},
+        </if>
+        system_id = #{systemId,jdbcType=INTEGER}
+        where system_id = #{systemId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date, 
@@ -64,4 +89,48 @@
     doc_tag
     from doctor
   </select>
+
+
+  <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.Doctor" resultMap="BaseResultMap">
+    select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,
+           doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file,
+           doc_tag
+    from doctor
+    <where>
+      <if test="docProvince != '' and docProvince != null">
+        and doc_province = #{docProvince,jdbcType=VARCHAR}
+      </if>
+      <if test="docCity != '' and docCity != null">
+        and doc_city = #{docCity,jdbcType=VARCHAR}
+      </if>
+      <if test="docHospital != '' and docHospital != null">
+        and doc_hospital = #{docHospital,jdbcType=VARCHAR}
+      </if>
+      <if test="docRoom != '' and docRoom != null">
+        and doc_room = #{docRoom,jdbcType=VARCHAR}
+      </if>
+      <if test="docPhone != '' and docPhone != null">
+        and doc_phone = #{docPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="docName != '' and docName != null">
+        and doc_name = #{docName,jdbcType=VARCHAR}
+      </if>
+      <if test="docTag != null">
+        and doc_tag = #{docTag,jdbcType=TINYINT}
+      </if>
+    </where>
+  </select>
+
+
+  <update id="updateByPrimaryKey" parameterType="java.lang.Integer">
+    update doctor
+    set doc_sum_patient = doc_sum_patient  + doc_inc_patient,
+        doc_sum_money = doc_sum_money + doc_inc_money,
+        doc_inc_money = 0,
+        doc_inc_patient = 0
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </update>
+
+
+
 </mapper>

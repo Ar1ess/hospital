@@ -20,4 +20,8 @@ public interface DoctorMapper {
     List<Doctor> selectAll();
 
     int updateByPrimaryKey(Doctor record);
+
+    List<Doctor> selectByCondition(Doctor record);
+
+    int updatePatientAndMoney(Integer SystemId);
 }

@@ -4,18 +4,17 @@ import com.softlab.hospital.common.ErrorMessage;
 import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
-import com.softlab.hospital.common.util.TokenUtil;
 import com.softlab.hospital.common.util.VerifyUtil;
 import com.softlab.hospital.core.model.Doctor;
-import com.softlab.hospital.core.model.User;
 import com.softlab.hospital.service.UserService;
+import org.apache.tomcat.jni.Multicast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.NoRouteToHostException;
 
 
 /**
@@ -34,17 +33,58 @@ public class UserApi {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/add-doctor", method = RequestMethod.POST)
-    public RestData postAddDoctor(@RequestBody Doctor doctor, HttpServletRequest request) {
-        logger.info("POST postAddDoctor" + JsonUtil.getJsonString(doctor));
-        if(!VerifyUtil.VerifyLogin(request)){
-            return new RestData(2, ErrorMessage.PLEASE_RELOGIN);
+    @RequestMapping(value = "/doctor/{systemId}", method = RequestMethod.DELETE)
+    public RestData deleteDoctor(@PathVariable Integer systemId, HttpServletRequest request) throws HosExection {
+        logger.info("delete doctor systemId = " + systemId);
+
+        if (!VerifyUtil.VerifyLogin(request)){
+            return new RestData(1, ErrorMessage.PLEASE_RELOGIN);
         }
-        /*try {
 
-        } catch (HosExection e) {
+        return userService.deleteBySystemId(systemId);
+    }
 
-        }*/
-        return null;
+    @RequestMapping(value = "/doctor", method = RequestMethod.PUT)
+    public RestData updateDoctor(@RequestBody Doctor doctor, HttpServletRequest request) throws HosExection{
+        logger.info("update doctor: " + JsonUtil.getJsonString(doctor));
+
+        if (VerifyUtil.VerifyLogin(request)){
+            return new RestData(1, ErrorMessage.PLEASE_RELOGIN);
+        }
+
+        return userService.updateDoctor(doctor);
+    }
+
+    @RequestMapping(value = "/doctor", method = RequestMethod.POST)
+    public RestData insertDoctor(@RequestParam MultipartFile file, @RequestBody Doctor doctor, HttpServletRequest request) throws HosExection{
+        logger.info("insert doctor: " + JsonUtil.getJsonString(doctor));
+
+        if (VerifyUtil.VerifyLogin(request)){
+            return new RestData(1, ErrorMessage.PLEASE_RELOGIN);
+        }
+
+        return userService.insertDoctor(doctor);
+    }
+
+    @RequestMapping(value = "/doctor", method = RequestMethod.GET)
+    public RestData getAllDoctor(HttpServletRequest request){
+        logger.info("getAllDoctor: " );
+
+        if (VerifyUtil.VerifyLogin(request)){
+            return new RestData(1, ErrorMessage.PLEASE_RELOGIN);
+        }
+
+        return new RestData(userService.selectAll());
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public RestData searchDoctor(@RequestBody Doctor doctor, HttpServletRequest request){
+        logger.info("searchDoctor: " + JsonUtil.getJsonString(doctor));
+
+        if (VerifyUtil.VerifyLogin(request)){
+            return new RestData(1, ErrorMessage.PLEASE_RELOGIN);
+        }
+
+        return new RestData(userService.selectByContidion(doctor));
     }
 }

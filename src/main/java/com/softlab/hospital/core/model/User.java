@@ -39,5 +39,5 @@ public class User {
      * 1 = 管理员
      * 2 = 超级管理员
      */
-    private Byte userType;
+    private Integer userType;
 }

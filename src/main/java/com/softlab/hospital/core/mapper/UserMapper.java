@@ -15,15 +15,11 @@ public interface UserMapper {
 
     int deleteByPrimaryKey(Integer systemId);
 
-
     int insert(User record);
-
 
     User selectByPrimaryKey(Integer systemId);
 
-
     List<User> selectAll();
-
 
     int updateByPrimaryKey(User record);
 
