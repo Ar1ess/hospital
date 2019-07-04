@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softlab.hospital.core.mapper.UserMapper">
+
+  <resultMap id="BaseResultMap" type="com.softlab.hospital.core.model.User">
+    <id column="system_id" jdbcType="INTEGER" property="systemId" />
+    <result column="user_id" jdbcType="CHAR" property="userId" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_token" jdbcType="VARCHAR" property="userToken" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.softlab.hospital.core.model.User">
+    insert into user (system_id, user_id, user_password, 
+      user_name, user_token, user_type
+      )
+    values (#{systemId,jdbcType=INTEGER}, #{userId,jdbcType=CHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userToken,jdbcType=VARCHAR}, #{userType,jdbcType=TINYINT}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.softlab.hospital.core.model.User">
+    update user
+    set user_id = #{userId,jdbcType=CHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_token = #{userToken,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=TINYINT}
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateTokenBySystemId" parameterType="com.softlab.hospital.core.model.User">
+    update user
+    set user_token = #{userToken,jdbcType=VARCHAR}
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select system_id, user_id, user_password, user_name, user_token, user_type
+    from user
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select system_id, user_id, user_password, user_name, user_token, user_type
+    from user
+  </select>
+
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select system_id, user_id, user_password, user_name, user_token, user_type
+    from user
+    <where>
+      <if test="null != systemId and '' != userName">
+        and system_id = #{systemId}
+      </if>
+      <if test="null != userId and '' != userId">
+        and user_id = #{userId}
+      </if>
+      <if test="null != userPassword and '' != userPassword">
+        and user_password = #{userPassword}
+      </if>
+      <if test="null != userName and '' != userName">
+        and user_name = #{userName}
+      </if>
+      <if test="null != userType and '' != userType">
+        and user_type = #{userType}
+      </if>
+      <if test="null != userToken and '' != userToken">
+        and user_token = #{userToken}
+      </if>
+    </where>
+  </select>
+</mapper>

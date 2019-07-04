@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softlab.hospital.core.mapper.DoctorMapper">
+  <resultMap id="BaseResultMap" type="com.softlab.hospital.core.model.Doctor">
+    <id column="system_id" jdbcType="INTEGER" property="systemId" />
+    <result column="doc_province" jdbcType="VARCHAR" property="docProvince" />
+    <result column="doc_city" jdbcType="VARCHAR" property="docCity" />
+    <result column="doc_hospital" jdbcType="VARCHAR" property="docHospital" />
+    <result column="doc_room" jdbcType="VARCHAR" property="docRoom" />
+    <result column="doc_name" jdbcType="VARCHAR" property="docName" />
+    <result column="doc_date" jdbcType="VARCHAR" property="docDate" />
+    <result column="doc_phone" jdbcType="VARCHAR" property="docPhone" />
+    <result column="doc_sum_patient" jdbcType="BIGINT" property="docSumPatient" />
+    <result column="doc_inc_patient" jdbcType="INTEGER" property="docIncPatient" />
+    <result column="doc_sum_money" jdbcType="DOUBLE" property="docSumMoney" />
+    <result column="doc_inc_money" jdbcType="DOUBLE" property="docIncMoney" />
+    <result column="doc_file" jdbcType="VARCHAR" property="docFile" />
+    <result column="doc_tag" jdbcType="TINYINT" property="docTag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doctor
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.softlab.hospital.core.model.Doctor">
+    insert into doctor (system_id, doc_province, doc_city, 
+      doc_hospital, doc_room, doc_name, 
+      doc_date, doc_phone, doc_sum_patient, 
+      doc_inc_patient, doc_sum_money, doc_inc_money, 
+      doc_file, doc_tag)
+    values (#{systemId,jdbcType=INTEGER}, #{docProvince,jdbcType=VARCHAR}, #{docCity,jdbcType=VARCHAR}, 
+      #{docHospital,jdbcType=VARCHAR}, #{docRoom,jdbcType=VARCHAR}, #{docName,jdbcType=VARCHAR}, 
+      #{docDate,jdbcType=VARCHAR}, #{docPhone,jdbcType=VARCHAR}, #{docSumPatient,jdbcType=BIGINT}, 
+      #{docIncPatient,jdbcType=INTEGER}, #{docSumMoney,jdbcType=DOUBLE}, #{docIncMoney,jdbcType=DOUBLE}, 
+      #{docFile,jdbcType=VARCHAR}, #{docTag,jdbcType=TINYINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.softlab.hospital.core.model.Doctor">
+    update doctor
+    set doc_province = #{docProvince,jdbcType=VARCHAR},
+      doc_city = #{docCity,jdbcType=VARCHAR},
+      doc_hospital = #{docHospital,jdbcType=VARCHAR},
+      doc_room = #{docRoom,jdbcType=VARCHAR},
+      doc_name = #{docName,jdbcType=VARCHAR},
+      doc_date = #{docDate,jdbcType=VARCHAR},
+      doc_phone = #{docPhone,jdbcType=VARCHAR},
+      doc_sum_patient = #{docSumPatient,jdbcType=BIGINT},
+      doc_inc_patient = #{docIncPatient,jdbcType=INTEGER},
+      doc_sum_money = #{docSumMoney,jdbcType=DOUBLE},
+      doc_inc_money = #{docIncMoney,jdbcType=DOUBLE},
+      doc_file = #{docFile,jdbcType=VARCHAR},
+      doc_tag = #{docTag,jdbcType=TINYINT}
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date, 
+    doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file, 
+    doc_tag
+    from doctor
+    where system_id = #{systemId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date, 
+    doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file, 
+    doc_tag
+    from doctor
+  </select>
+</mapper>
