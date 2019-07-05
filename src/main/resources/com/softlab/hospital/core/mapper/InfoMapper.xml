@@ -55,4 +55,10 @@
     select system_id, hospital, room
     from info
   </select>
+
+
+  <select id="selectAllHospital" resultType="java.lang.String">
+    select distinct hospital
+    from info
+  </select>
 </mapper>

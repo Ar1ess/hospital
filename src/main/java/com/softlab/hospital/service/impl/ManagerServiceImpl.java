@@ -1,5 +1,6 @@
 package com.softlab.hospital.service.impl;
 
+import com.softlab.hospital.common.ErrorMessage;
 import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
@@ -36,19 +37,26 @@ public class ManagerServiceImpl implements ManagerService {
 
 
     @Override
-    public List<Map<String, Object>> selectAllUser() {
+    public List<Map<String, Object>> selectAllUser() throws HosExection{
         logger.info("selectAllUser:");
         List<Map<String, Object>> al = new ArrayList<>();
         List<User> list = userMapper.selectAllUser();
-        for (User list0 : list){
-            Map<String, Object> map = new HashMap<>(8);
-            map.put("userId", list0.getUserId());
-            map.put("userPassword", list0.getUserPassword());
-            map.put("userName", list0.getUserName());
-            map.put("userType", list0.getUserType());
-            al.add(map);
+        if (null != list){
+            for (User list0 : list){
+                Map<String, Object> map = new HashMap<>(8);
+                map.put("userId", list0.getUserId());
+                map.put("userPassword", list0.getUserPassword());
+                map.put("userName", list0.getUserName());
+                map.put("userType", list0.getUserType());
+                al.add(map);
+            }
+        } else {
+            throw new HosExection(ErrorMessage.NONE_DATA);
         }
         return al;
+
+
+
     }
 
     @Override

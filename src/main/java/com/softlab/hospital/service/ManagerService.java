@@ -20,7 +20,7 @@ public interface ManagerService {
      *
      * @return
      */
-    List<Map<String, Object>> selectAllUser();
+    List<Map<String, Object>> selectAllUser() throws HosExection;
 
     /**
      * 修改指定市场人员

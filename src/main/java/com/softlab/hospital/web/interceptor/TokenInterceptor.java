@@ -49,7 +49,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             if (null == user) {
                 logger.info("TokenInterceptor failed, token=" + request.getHeader("token"));
                 try {
-                    responseJson(response, new RestData(2, ErrorMessage.PLEASE_RELOGIN));
+                    responseJson(response, new RestData(1, ErrorMessage.PLEASE_RELOGIN));
                 } catch (Exception e) {
                     logger.error(e.getLocalizedMessage());
                 }

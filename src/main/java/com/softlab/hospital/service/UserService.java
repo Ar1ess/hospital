@@ -55,7 +55,7 @@ public interface UserService {
      *
      * @return
      */
-    List<Map<String, Object>> selectAll(String userId);
+    List<Map<String, Object>> selectAll(String userId) throws HosExection;
 
     /**
      * 按照条件查询医生
@@ -63,7 +63,7 @@ public interface UserService {
      * @param doctor
      * @return
      */
-    List<Map<String, Object>> selectByContidion(Doctor doctor);
+    List<Map<String, Object>> selectByContidion(Doctor doctor) throws HosExection;
 
 
 }

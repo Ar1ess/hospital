@@ -1,5 +1,6 @@
 package com.softlab.hospital.service.impl;
 
+import com.softlab.hospital.common.ErrorMessage;
 import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
@@ -90,54 +91,62 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Map<String, Object>> selectAll(String userId){
+    public List<Map<String, Object>> selectAll(String userId) throws HosExection{
         logger.info("selectAll");
         List<Map<String, Object>> al = new ArrayList<>();
         List<Doctor> list = doctorMapper.selectAllDoctor(userId);
-        for (Doctor list0 : list){
-            Map<String, Object> map = new HashMap<>(16);
-            map.put("systemId", list0.getSystemId());
-            map.put("province", list0.getDocProvince());
-            map.put("city", list0.getDocCity());
-            map.put("hospital", list0.getDocHospital());
-            map.put("room", list0.getDocRoom());
-            map.put("name", list0.getDocName());
-            map.put("phone", list0.getDocPhone());
-            map.put("date", list0.getDocDate());
-            map.put("sumPatient", list0.getDocSumPatient());
-            map.put("incPatient", list0.getDocIncPatient());
-            map.put("sumMoney", list0.getDocSumMoney());
-            map.put("incMoney", list0.getDocIncMoney());
-            map.put("file", list0.getDocFile());
-            map.put("tag", list0.getDocTag());
-            al.add(map);
+        if (null == list) {
+            for (Doctor list0 : list){
+                Map<String, Object> map = new HashMap<>(16);
+                map.put("systemId", list0.getSystemId());
+                map.put("province", list0.getDocProvince());
+                map.put("city", list0.getDocCity());
+                map.put("hospital", list0.getDocHospital());
+                map.put("room", list0.getDocRoom());
+                map.put("name", list0.getDocName());
+                map.put("phone", list0.getDocPhone());
+                map.put("date", list0.getDocDate());
+                map.put("sumPatient", list0.getDocSumPatient());
+                map.put("incPatient", list0.getDocIncPatient());
+                map.put("sumMoney", list0.getDocSumMoney());
+                map.put("incMoney", list0.getDocIncMoney());
+                map.put("file", list0.getDocFile());
+                map.put("tag", list0.getDocTag());
+                al.add(map);
+            }
+        } else {
+            throw new HosExection(ErrorMessage.NONE_DATA);
         }
         return al;
 
     }
 
     @Override
-    public List<Map<String, Object>> selectByContidion(Doctor doctor){
+    public List<Map<String, Object>> selectByContidion(Doctor doctor) throws HosExection{
         logger.info("selectByCondition" + JsonUtil.getJsonString(doctor));
         List<Map<String, Object>> al = new ArrayList<>();
         List<Doctor> list = doctorMapper.selectByCondition(doctor);
-        for (Doctor list0 : list){
-            Map<String, Object> map = new HashMap<>(16);
-            map.put("systemId", list0.getSystemId());
-            map.put("province", list0.getDocProvince());
-            map.put("city", list0.getDocCity());
-            map.put("hospital", list0.getDocHospital());
-            map.put("room", list0.getDocRoom());
-            map.put("name", list0.getDocName());
-            map.put("phone", list0.getDocPhone());
-            map.put("date", list0.getDocDate());
-            map.put("sumPatient", list0.getDocSumPatient());
-            map.put("incPatient", list0.getDocIncPatient());
-            map.put("sumMoney", list0.getDocSumMoney());
-            map.put("incMoney", list0.getDocIncMoney());
-            map.put("file", list0.getDocFile());
-            map.put("tag", list0.getDocTag());
-            al.add(map);
+        if (null == list) {
+            for (Doctor list0 : list) {
+                Map<String, Object> map = new HashMap<>(16);
+                map.put("systemId", list0.getSystemId());
+                map.put("tag", list0.getDocTag());
+                map.put("province", list0.getDocProvince());
+                map.put("city", list0.getDocCity());
+                map.put("hospital", list0.getDocHospital());
+                map.put("room", list0.getDocRoom());
+                map.put("name", list0.getDocName());
+                map.put("phone", list0.getDocPhone());
+                map.put("date", list0.getDocDate());
+                map.put("sumPatient", list0.getDocSumPatient());
+                map.put("incPatient", list0.getDocIncPatient());
+                map.put("sumMoney", list0.getDocSumMoney());
+                map.put("incMoney", list0.getDocIncMoney());
+                map.put("file", list0.getDocFile());
+                al.add(map);
+            }
+        } else {
+            throw new HosExection(ErrorMessage.NONE_DATA);
         }
         return al;
 

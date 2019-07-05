@@ -62,11 +62,11 @@
     where user_type = 3
   </select>
 
-  <select id="selectByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.User" resultMap="BaseResultMap">
     select system_id, user_id, user_password, user_name, user_token, user_type
     from user
     <where>
-      <if test="null != systemId and '' != userName">
+      <if test="null != systemId">
         and system_id = #{systemId}
       </if>
       <if test="null != userId and '' != userId">
@@ -78,11 +78,11 @@
       <if test="null != userName and '' != userName">
         and user_name = #{userName}
       </if>
-      <if test="null != userType and '' != userType">
+      <if test="null != userType">
         and user_type = #{userType}
       </if>
       <if test="null != userToken and '' != userToken">
-        and user_token = #{userToken}
+        and user_token = #{userToken, jdbcType=VARCHAR}
       </if>
     </where>
   </select>
