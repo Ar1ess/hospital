@@ -26,4 +26,6 @@ public interface UserMapper {
     List<User> selectByCondition(User user);
 
     int updateTokenBySystemId(User user);
+
+    List<User> selectAllManager();
 }

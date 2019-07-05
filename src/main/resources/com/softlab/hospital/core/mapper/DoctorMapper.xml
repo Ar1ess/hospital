@@ -16,7 +16,8 @@
     <result column="doc_inc_money" jdbcType="DOUBLE" property="docIncMoney" />
     <result column="doc_file" jdbcType="VARCHAR" property="docFile" />
     <result column="doc_tag" jdbcType="TINYINT" property="docTag" />
-  </resultMap>
+</resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from doctor
     where system_id = #{systemId,jdbcType=INTEGER}
@@ -92,15 +93,13 @@
   </select>
 
 
-  <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.vo.DoctorVo" resultMap="BaseResultMap">
-    select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,
-           doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file,
-           doc_tag
+  <select id="selectDoctorByCondition" parameterType="com.softlab.hospital.core.model.vo.DoctorVo" resultType="com.softlab.hospital.core.model.vo.DoctorVo">
+    select sum(doc_sum_patient), sum(doc_inc_patient), sum(doc_sum_money), sum(doc_inc_money)
     from doctor
     <where>
-        <if test="createTime != null and endTime != null">
-            and doc_date between #{createTime, jdbcType=VARCHAR} and #{endTime, jdbcType=VARCHAR}
-        </if>
+      <if test="createTime != null and endTime != null">
+        and doc_date between #{createTime, jdbcType=VARCHAR} and #{endTime, jdbcType=VARCHAR}
+      </if>
       <if test="docProvince != '' and docProvince != null">
         and doc_province = #{docProvince,jdbcType=VARCHAR}
       </if>
@@ -113,17 +112,41 @@
       <if test="docRoom != '' and docRoom != null">
         and doc_room = #{docRoom,jdbcType=VARCHAR}
       </if>
-      <if test="docPhone != '' and docPhone != null">
-        and doc_phone = #{docPhone,jdbcType=VARCHAR}
-      </if>
-      <if test="docName != '' and docName != null">
-        and doc_name = #{docName,jdbcType=VARCHAR}
-      </if>
-      <if test="docTag != null">
-        and doc_tag = #{docTag,jdbcType=TINYINT}
-      </if>
     </where>
   </select>
+
+    <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.vo.DoctorVo" resultMap="BaseResultMap">
+        select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,
+        doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file,
+        doc_tag
+        from doctor
+        <where>
+            <if test="createTime != null and endTime != null">
+                and doc_date between #{createTime, jdbcType=VARCHAR} and #{endTime, jdbcType=VARCHAR}
+            </if>
+            <if test="docProvince != '' and docProvince != null">
+                and doc_province = #{docProvince,jdbcType=VARCHAR}
+            </if>
+            <if test="docCity != '' and docCity != null">
+                and doc_city = #{docCity,jdbcType=VARCHAR}
+            </if>
+            <if test="docHospital != '' and docHospital != null">
+                and doc_hospital = #{docHospital,jdbcType=VARCHAR}
+            </if>
+            <if test="docRoom != '' and docRoom != null">
+                and doc_room = #{docRoom,jdbcType=VARCHAR}
+            </if>
+            <if test="docPhone != '' and docPhone != null">
+                and doc_phone = #{docPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="docName != '' and docName != null">
+                and doc_name = #{docName,jdbcType=VARCHAR}
+            </if>
+            <if test="docTag != null">
+                and doc_tag = #{docTag,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
 
 
   <update id="updatePatientAndMoney" parameterType="java.lang.Integer">

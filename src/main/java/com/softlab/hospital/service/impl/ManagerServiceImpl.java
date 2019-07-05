@@ -37,11 +37,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Map<String, Object>> selectAllUser() {
-        logger.info("selectAllUser:");
+        logger.info("selectAllUser : ");
         List<Map<String, Object>> al = new ArrayList<>();
         List<User> list = userMapper.selectAllUser();
         for (User list0 : list){
             Map<String, Object> map = new HashMap<>(8);
+            map.put("systemId", list0.getSystemId());
             map.put("userId", list0.getUserId());
             map.put("userPassword", list0.getUserPassword());
             map.put("userName", list0.getUserName());
@@ -53,7 +54,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public RestData updateUser(User user) throws HosExection {
-        logger.info("updateUserBySystemId" + JsonUtil.getJsonString(user));
+        logger.info("updateUserBySystemId : " + JsonUtil.getJsonString(user));
         int success = userMapper.updateByPrimaryKey(user);
         if (0 < success){
             return new RestData(0, "修改成功");
@@ -64,7 +65,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public RestData insertUser(User user) throws HosExection {
-        logger.info("insertUser" + JsonUtil.getJsonString(user));
+        logger.info("insertUser : " + JsonUtil.getJsonString(user));
         int success = userMapper.insert(user);
         if (0 < success){
             return new RestData(0, "添加成功");

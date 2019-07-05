@@ -2,6 +2,7 @@ package com.softlab.hospital.core.mapper;
 
 
 import com.softlab.hospital.core.model.Doctor;
+import com.softlab.hospital.core.model.vo.DoctorVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,4 +25,6 @@ public interface DoctorMapper {
     List<Doctor> selectByCondition(Doctor record);
 
     int updatePatientAndMoney(Integer SystemId);
+
+    DoctorVo selectDoctorByCondition(DoctorVo doctorVo);
 }

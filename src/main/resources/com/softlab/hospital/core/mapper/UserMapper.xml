@@ -62,6 +62,12 @@
     where user_type = 3
   </select>
 
+  <select id="selectAllManager" resultMap="BaseResultMap">
+    select system_id, user_id, user_password, user_name, user_token, user_type
+    from user
+    where user_type = 2
+  </select>
+
   <select id="selectByCondition" resultMap="BaseResultMap">
     select system_id, user_id, user_password, user_name, user_token, user_type
     from user

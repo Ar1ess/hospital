@@ -11,6 +11,14 @@ import lombok.Data;
 @Data
 public class DoctorVo extends Doctor {
 
+    private Integer totalPeople;
+
+    private Integer totalIncPeople;
+
+    private Double totalMoney;
+
+    private Double totalIncMoney;
+
     private String createTime;
 
     private String endTime;
