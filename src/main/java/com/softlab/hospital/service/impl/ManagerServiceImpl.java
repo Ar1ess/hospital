@@ -44,6 +44,7 @@ public class ManagerServiceImpl implements ManagerService {
         if (null != list){
             for (User list0 : list){
                 Map<String, Object> map = new HashMap<>(8);
+                map.put("systemId", list0.getSystemId());
                 map.put("userId", list0.getUserId());
                 map.put("userPassword", list0.getUserPassword());
                 map.put("userName", list0.getUserName());
