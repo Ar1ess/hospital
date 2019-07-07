@@ -108,6 +108,22 @@ public class ManagerApi {
     }
 
 
+    @RequestMapping(value = "/doctor-all", method = RequestMethod.GET)
+    public RestData getAllDcotor(HttpServletRequest request){
+        logger.info("getAllDoctor : ");
+
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
+
+        try{
+            return new RestData(managerService.selectAllDoctor());
+        } catch (HosExection e){
+            return new RestData(1, e.getMessage());
+        }
+    }
+
+
 
 
 }

@@ -70,7 +70,7 @@
             doc_file = #{docFile,jdbcType=VARCHAR},
         </if>
         <if test="docTag != null">
-            doc_tag = #{docTag,jdbcType=TINYINT},
+            doc_tag = #{docTag,jdbcType=CHAR},
         </if>
         system_id = #{systemId,jdbcType=INTEGER}
         where system_id = #{systemId,jdbcType=INTEGER}
@@ -120,7 +120,7 @@
         and doc_name = #{docName,jdbcType=VARCHAR}
       </if>
       <if test="docTag != null">
-        and doc_tag = #{docTag,jdbcType=TINYINT}
+        and doc_tag = #{docTag,jdbcType=CHAR}
       </if>
     </where>
   </select>

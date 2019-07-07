@@ -1,5 +1,6 @@
 package com.softlab.hospital.core.mapper;
 
+import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.core.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,8 @@ public interface UserMapper {
     List<User> selectAllManager();
 
     User selectByToken(User user);
+
+    List<Doctor> selectAllDoctor();
 
 
 }

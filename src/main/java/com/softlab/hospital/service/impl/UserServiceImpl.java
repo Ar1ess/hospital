@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RestData deleteBySystemId(Integer systemId) throws HosExection{
-        logger.info("deleteBySystemId" + systemId);
+        logger.info("deleteBySystemId : " + systemId);
         int success = doctorMapper.deleteByPrimaryKey(systemId);
         if (0 < success){
             return new RestData(0, "删除成功");

@@ -75,6 +75,6 @@ public class Doctor {
     /**
      * 所属人员
      */
-    private Integer docTag;
+    private String docTag;
 
 }

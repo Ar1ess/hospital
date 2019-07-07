@@ -56,4 +56,12 @@ public interface ManagerService {
      * @return
      */
     RestData updatePatientAndMoney(ArrayList<Integer> al) throws HosExection;
+
+    /**
+     * 查找所有医生信息
+     *
+     * @return
+     * @throws HosExection
+     */
+    List<Map<String, Object>> selectAllDoctor() throws HosExection;
 }
