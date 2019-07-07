@@ -40,4 +40,5 @@ public class User {
      * 2 = 超级管理员
      */
     private Integer userType;
+
 }

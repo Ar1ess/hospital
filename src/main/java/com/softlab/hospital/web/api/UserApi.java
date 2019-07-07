@@ -4,7 +4,6 @@ import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
 import com.softlab.hospital.common.util.UploadUtil;
-import com.softlab.hospital.core.mapper.InfoMapper;
 import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.service.UserService;
 import org.slf4j.Logger;
@@ -28,12 +27,10 @@ public class UserApi {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final UserService userService;
-    private final InfoMapper infoMapper;
 
     @Autowired
-    public UserApi(UserService userService, InfoMapper infoMapper) {
+    public UserApi(UserService userService) {
         this.userService = userService;
-        this.infoMapper = infoMapper;
     }
 
     @RequestMapping(value = "/doctor/{systemId}", method = RequestMethod.DELETE)
@@ -103,14 +100,5 @@ public class UserApi {
             return new RestData(1, e.getMessage());
         }
     }
-
-    @RequestMapping(value = "/hospital", method = RequestMethod.GET)
-    public RestData getAllHospital(){
-        logger.info("getAllHospital: ");
-
-        return new RestData(infoMapper.selectAllHospital());
-
-    }
-
 
 }

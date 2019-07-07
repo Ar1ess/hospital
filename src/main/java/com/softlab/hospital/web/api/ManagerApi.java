@@ -1,8 +1,10 @@
 package com.softlab.hospital.web.api;
 
+import com.softlab.hospital.common.ErrorMessage;
 import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
+import com.softlab.hospital.common.util.VerifyUtil;
 import com.softlab.hospital.core.model.User;
 import com.softlab.hospital.core.model.vo.UpList;
 import com.softlab.hospital.service.ManagerService;
@@ -11,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by LiXiwen on 2019/7/3 17:58.
@@ -31,15 +35,23 @@ public class ManagerApi {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public RestData update(@RequestBody UpList upList) throws HosExection{
+    public RestData update(@RequestBody UpList upList, HttpServletRequest request) throws HosExection{
         logger.info("updatePatientAndMoney upList: " + JsonUtil.getJsonString(upList));
+
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
 
         return new RestData(managerService.updatePatientAndMoney(upList.getAl()));
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public RestData getAllUser(){
+    public RestData getAllUser(HttpServletRequest request){
         logger.info("getAllUser: ");
+
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
 
         try{
             return new RestData(managerService.selectAllUser());
@@ -50,8 +62,12 @@ public class ManagerApi {
     }
 
     @RequestMapping(value = "/user/{systemId}", method = RequestMethod.DELETE)
-    public RestData deleteUser(@PathVariable Integer systemId){
+    public RestData deleteUser(@PathVariable Integer systemId, HttpServletRequest request){
         logger.info("deleteUser systemId = " + systemId);
+
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
 
         try{
             return managerService.deleteUser(systemId);
@@ -61,8 +77,12 @@ public class ManagerApi {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public RestData updateUser(@RequestBody User user){
+    public RestData updateUser(@RequestBody User user, HttpServletRequest request){
         logger.info("updateUser user : " + JsonUtil.getJsonString(user));
+
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
 
         try{
             return managerService.updateUser(user);
@@ -73,8 +93,12 @@ public class ManagerApi {
 
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public RestData insertUser(@RequestBody User user){
+    public RestData insertUser(@RequestBody User user, HttpServletRequest request){
         logger.info("insertUser user : " + JsonUtil.getJsonString(user));
+
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
 
         try{
             return managerService.insertUser(user);

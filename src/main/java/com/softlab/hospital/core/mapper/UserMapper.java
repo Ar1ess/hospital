@@ -29,5 +29,7 @@ public interface UserMapper {
 
     List<User> selectAllManager();
 
+    User selectByToken(User user);
+
 
 }

@@ -55,9 +55,6 @@ public class ManagerServiceImpl implements ManagerService {
             throw new HosExection(ErrorMessage.NONE_DATA);
         }
         return al;
-
-
-
     }
 
     @Override

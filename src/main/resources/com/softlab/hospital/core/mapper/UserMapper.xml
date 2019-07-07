@@ -92,4 +92,10 @@
       </if>
     </where>
   </select>
+
+  <select id="selectByToken" resultMap="BaseResultMap">
+    select system_id, user_id, user_password, user_name, user_token, user_type
+    from user
+    where user_token = #{userToken, jdbcType=VARCHAR}
+  </select>
 </mapper>
