@@ -62,13 +62,6 @@
     where user_type = 3
   </select>
 
-  <select id="selectAllDoctor" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,
-           doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file,
-           doc_tag
-    from doctor
-  </select>
-
   <select id="selectAllManager" resultMap="BaseResultMap">
     select system_id, user_id, user_password, user_name, user_token, user_type
     from user

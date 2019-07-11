@@ -27,4 +27,6 @@ public interface DoctorMapper {
     int updatePatientAndMoney(Integer SystemId);
 
     DoctorVo selectDoctorByCondition(DoctorVo doctorVo);
+
+    List<Doctor> selectAll();
 }

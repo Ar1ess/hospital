@@ -32,7 +32,6 @@ public interface UserMapper {
 
     User selectByToken(User user);
 
-    List<Doctor> selectAllDoctor();
 
 
 }

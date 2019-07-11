@@ -80,8 +80,8 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/doctor", method = RequestMethod.GET)
-    public RestData getAllDoctor(@RequestParam String userId){
-        logger.info("getAllDoctor: " );
+    public RestData getAllDoctor(@RequestParam(value = "userId") String userId){
+        logger.info("getAllDoctorByUserId userId = "  + userId);
 
         try {
             return new RestData(userService.selectAll(userId));

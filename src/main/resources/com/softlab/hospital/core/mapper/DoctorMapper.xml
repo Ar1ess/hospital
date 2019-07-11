@@ -91,6 +91,13 @@
     where doc_tag = #{userId}
   </select>
 
+    <select id="selectAll"  resultMap="BaseResultMap">
+        select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,
+               doc_phone, doc_sum_patient, doc_inc_patient, doc_sum_money, doc_inc_money, doc_file,
+               doc_tag
+        from doctor
+    </select>
+
 
   <select id="selectByCondition" parameterType="com.softlab.hospital.core.model.vo.DoctorVo" resultMap="BaseResultMap">
     select system_id, doc_province, doc_city, doc_hospital, doc_room, doc_name, doc_date,

@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
         logger.info("selectAll");
         List<Map<String, Object>> al = new ArrayList<>();
         List<Doctor> list = doctorMapper.selectAllDoctor(userId);
-        if (null == list) {
+        if (null != list) {
             for (Doctor list0 : list){
                 Map<String, Object> map = new HashMap<>(16);
                 map.put("systemId", list0.getSystemId());
