@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import javax.print.Doc;
 import java.io.Reader;
 import java.util.List;
 
@@ -29,15 +30,15 @@ public class HospitalApplicationTests {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private DoctorMapper doctorMapper;
+
 	@Test
 	public void testSelectByCondition() {
-		User user = new User();
-		user.setUserToken("7167357ba7f543c2b6aae99dc1f380ff");
 
-
-		List<User> list = userMapper.selectByCondition(user);
-		if (1 == list.size()){
-			System.out.println(list.get(0).toString());
+		List <Doctor> list = doctorMapper.selectAllDoctor("100001");
+		for (Doctor list0 : list){
+			System.out.println(list0);
 		}
 	}
 

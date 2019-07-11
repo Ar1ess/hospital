@@ -42,7 +42,7 @@ public class ManagerApi {
             return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
         }
 
-        return new RestData(managerService.updatePatientAndMoney(upList.getAl()));
+        return managerService.updatePatientAndMoney(upList.getAl());
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)

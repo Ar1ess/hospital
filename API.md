@@ -162,14 +162,200 @@ tips
 }
 ```
 
+---
+
 ### 1.3.4 查询自己的医生信息
+
+- GET  /doctor?userId={userId}
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "date": "2019/7/3",
+      "incPatient": 0,
+      "systemId": 2,
+      "sumMoney": 0,
+      "city": "哈尔滨市",
+      "sumPatient": 0,
+      "incMoney": 0,
+      "room": "内科",
+      "file": "aaa",
+      "province": "黑龙江省",
+      "phone": "13091896371",
+      "name": "江小白",
+      "tag": "100001",
+      "hospital": "医大二院"
+    }
+  ]
+}
+```
+
+---
+
 ##  1.4. 管理员系统 
+
 ### 1.4.1 查询所有医生信息
+
+- GET  /doctor-all
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "date": "7",
+      "incPatient": 0,
+      "systemId": 1,
+      "sumMoney": 200,
+      "city": "3",
+      "sumPatient": 300,
+      "incMoney": 0,
+      "room": "5",
+      "file": "WWW",
+      "province": "2",
+      "phone": "8",
+      "name": "6",
+      "tag": "1",
+      "hospital": "4"
+    },
+    {
+      "date": "2019/7/3",
+      "incPatient": 0,
+      "systemId": 2,
+      "sumMoney": 0,
+      "city": "哈尔滨市",
+      "sumPatient": 0,
+      "incMoney": 0,
+      "room": "内科",
+      "file": "aaa",
+      "province": "黑龙江省",
+      "phone": "13091896371",
+      "name": "江小白",
+      "tag": "100001",
+      "hospital": "医大二院"
+    }
+  ]
+}
+```
+
+---
+
 ### 1.4.2. 添加市场人员信息
+
+- POST /user
+- payload :
+
+```json
+{
+    "userName" : "007",
+    "userId" : "007",
+    "userType" : 3,
+    "userPassword" : "123456"
+}
+```
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "添加成功"
+}
+```
+
+---
+
 ### 1.4.3. 修改市场人员信息
+
+- PUT  /doctor
+
+- payload : 
+
+```json
+{
+   "systemId" : 2,
+   "userName" : "qwe"
+}
+```
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "修改成功"
+}
+```
+
+---
+
 ### 1.4.4. 删除市场人员信息
+
+- DELETE  /doctor/{systemId}
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "删除成功"
+}
+```
+
+---
+
 ### 1.4.5. 查询市场人员信息
+
+- GET  /user
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "systemId": 2,
+      "userPassword": "123456",
+      "userType": 3,
+      "userName": "asd",
+      "userId": "asd"
+    }
+  ]
+}
+```
+
+---
+
 ### 1.4.6. 维护总金额，患者总数
+
+- PUT  /update 
+
+- payload : 
+
+```json
+{
+    "al" : [1, 2]
+}
+```
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "批量维护成功"
+}
+```
+
+---
+
 ### 1.4.7. 增加省、市、医院、科室
 ### 1.4.8. 删除省、市、医院、科室
 ### 1.4.9. 修改省、市、医院、科室
