@@ -21,7 +21,7 @@
     delete from doctor
     where system_id = #{systemId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.softlab.hospital.core.model.Doctor">
+  <insert id="insert" parameterType="com.softlab.hospital.core.model.Doctor" useGeneratedKeys="true" keyProperty="systemId">
     insert into doctor (system_id, doc_province, doc_city, 
       doc_hospital, doc_room, doc_name, 
       doc_date, doc_phone, doc_sum_patient, 
@@ -105,7 +105,7 @@
            doc_tag
     from doctor
     <where>
-        <if test="createTime != null and endTime != null">
+        <if test="(createTime != null and createTime != '') and (endTime != null and endTime != '')">
             and doc_date between #{createTime, jdbcType=VARCHAR} and #{endTime, jdbcType=VARCHAR}
         </if>
       <if test="docProvince != '' and docProvince != null">
@@ -126,14 +126,34 @@
       <if test="docName != '' and docName != null">
         and doc_name = #{docName,jdbcType=VARCHAR}
       </if>
-      <if test="docTag != null">
+      <if test="docTag != null and docTag != ''">
         and doc_tag = #{docTag,jdbcType=CHAR}
       </if>
     </where>
   </select>
 
+    <select id="selectDoctorByCondition" resultType="com.softlab.hospital.core.model.vo.DoctorVo">
+        select sum(doc_sum_patient) totalPeople, sum(doc_inc_patient) totalIncPeople, sum(doc_sum_money) totalMoney,
+        sum(doc_inc_money) totalIncMoney
+        from doctor
+        <where>
+            <if test="docProvince != '' and docProvince != null">
+                and doc_province = #{docProvince,jdbcType=VARCHAR}
+            </if>
+            <if test="docCity != '' and docCity != null">
+                and doc_city = #{docCity,jdbcType=VARCHAR}
+            </if>
+            <if test="docHospital != '' and docHospital != null">
+                and doc_hospital = #{docHospital,jdbcType=VARCHAR}
+            </if>
+            <if test="docRoom != '' and docRoom != null">
+                and doc_room = #{docRoom,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 
-  <update id="updatePatientAndMoney" parameterType="java.lang.Integer">
+
+    <update id="updatePatientAndMoney" parameterType="java.lang.Integer">
     update doctor
     set doc_sum_patient = doc_sum_patient  + doc_inc_patient,
         doc_sum_money = doc_sum_money + doc_inc_money,

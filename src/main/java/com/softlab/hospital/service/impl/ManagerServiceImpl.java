@@ -5,8 +5,10 @@ import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
 import com.softlab.hospital.core.mapper.DoctorMapper;
+import com.softlab.hospital.core.mapper.InfoMapper;
 import com.softlab.hospital.core.mapper.UserMapper;
 import com.softlab.hospital.core.model.Doctor;
+import com.softlab.hospital.core.model.Info;
 import com.softlab.hospital.core.model.User;
 import com.softlab.hospital.service.ManagerService;
 import org.slf4j.Logger;
@@ -29,11 +31,13 @@ public class ManagerServiceImpl implements ManagerService {
 
     private final DoctorMapper doctorMapper;
     private final UserMapper userMapper;
+    private final InfoMapper infoMapper;
 
     @Autowired
-    public ManagerServiceImpl(DoctorMapper doctorMapper, UserMapper userMapper) {
+    public ManagerServiceImpl(DoctorMapper doctorMapper, UserMapper userMapper, InfoMapper infoMapper) {
         this.doctorMapper = doctorMapper;
         this.userMapper = userMapper;
+        this.infoMapper = infoMapper;
     }
 
 
@@ -72,6 +76,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public RestData insertUser(User user) throws HosExection {
         logger.info("insertUser" + JsonUtil.getJsonString(user));
+        user.setUserType(3);
         int success = userMapper.insert(user);
         if (0 < success){
             return new RestData(0, "添加成功");
@@ -133,6 +138,110 @@ public class ManagerServiceImpl implements ManagerService {
             throw new HosExection(ErrorMessage.NONE_DATA);
         }
         return al;
-
     }
+
+    @Override
+    public RestData selectAllProvince() throws HosExection {
+        List<String> rtv = new ArrayList<>();
+
+        rtv = infoMapper.selectAllProvince();
+        if(null != rtv) {
+            return new RestData(rtv);
+        } else {
+            throw new HosExection("无数据");
+        }
+    }
+
+    @Override
+    public RestData selectAllcity(Info record) throws HosExection {
+        List<String> rtv = new ArrayList<>();
+
+        rtv = infoMapper.selectAllCity(record);
+        if(null != rtv) {
+            return new RestData(rtv);
+        } else {
+            throw new HosExection("无数据");
+        }
+    }
+
+    @Override
+    public RestData selectAllHospital(Info record) throws HosExection {
+        List<String> rtv = new ArrayList<>();
+
+        rtv = infoMapper.selectAllHospital(record);
+        if(null != rtv) {
+            return new RestData(rtv);
+        } else {
+            throw new HosExection("无数据");
+        }
+    }
+
+    @Override
+    public RestData selectAllRoom(Info info) throws HosExection {
+        List<String> rtv = new ArrayList<>();
+
+        rtv = infoMapper.selectAllRoom(info);
+        if(null != rtv) {
+            return new RestData(rtv);
+        } else {
+            throw new HosExection("无数据");
+        }
+    }
+
+    @Override
+    public RestData postAdd(Info info) throws HosExection {
+        int status = infoMapper.insert(info);
+
+        if(0 < status) {
+            return new RestData(0, "添加成功");
+        } else {
+            throw new HosExection("添加失败");
+        }
+    }
+
+    @Override
+    public RestData selectAll() throws HosExection {
+        List<Info> rtv = new ArrayList<>();
+
+        rtv = infoMapper.selectAll();
+        if(null != rtv) {
+            return new RestData(rtv);
+        } else {
+            throw new HosExection("无数据");
+        }
+    }
+
+    @Override
+    public RestData selectByPrimaryKey(Long systemId) throws HosExection {
+        Info rtv = new Info();
+
+        rtv = infoMapper.selectByPrimaryKey(systemId);
+        if(null != rtv) {
+            return new RestData(rtv);
+        } else {
+            throw new HosExection("无数据");
+        }
+    }
+
+    @Override
+    public RestData deleteByPrimaryKey(Long systemId) throws HosExection {
+        int status = infoMapper.deleteByPrimaryKey(systemId);
+        if(0 < status) {
+            return new RestData(0, "删除成功");
+        } else {
+            throw new HosExection("删除失败");
+        }
+    }
+
+    @Override
+    public RestData updateByPrimaryKey(Info info) throws HosExection {
+        int status = infoMapper.updateByPrimaryKey(info);
+        if(0 < status) {
+            return new RestData(0, "更新成功");
+        } else {
+            throw new HosExection("更新失败");
+        }
+    }
+
+
 }

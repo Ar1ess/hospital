@@ -4,6 +4,8 @@ import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.core.model.User;
+import com.softlab.hospital.core.model.vo.DoctorVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public interface UserService {
      * @return
      * @throws HosExection
      */
-    RestData updateDoctor(Doctor doctor) throws HosExection;
+    RestData updateDoctor(MultipartFile[] files, Doctor doctor) throws Exception;
 
     /**
      * 增加医生信息
@@ -48,7 +50,7 @@ public interface UserService {
      * @return
      * @throws HosExection
      */
-    RestData insertDoctor(Doctor doctor) throws HosExection;
+    RestData insertDoctor(MultipartFile[] files, Doctor doctor) throws Exception;
 
     /**
      * 查看所有医生信息
@@ -60,10 +62,9 @@ public interface UserService {
     /**
      * 按照条件查询医生
      *
-     * @param doctor
+     * @param doctorVo
      * @return
      */
-    List<Map<String, Object>> selectByContidion(Doctor doctor) throws HosExection;
-
+    List<Map<String, Object>> selectByContidion(DoctorVo doctorVo) throws HosExection;
 
 }

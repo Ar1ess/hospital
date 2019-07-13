@@ -2,7 +2,9 @@ package com.softlab.hospital;
 
 import com.softlab.hospital.web.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -25,4 +27,5 @@ public class SpringBootWebMvcConfig implements WebMvcConfigurer {
         // excludePathPatterns 用来设置白名单，也就是不需要触发这个拦截器的路径。
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**");
     }
+
 }

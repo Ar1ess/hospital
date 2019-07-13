@@ -22,7 +22,7 @@ public interface DoctorMapper {
 
     int updateByPrimaryKey(Doctor record);
 
-    List<Doctor> selectByCondition(Doctor record);
+    List<Doctor> selectByCondition(DoctorVo record);
 
     int updatePatientAndMoney(Integer SystemId);
 

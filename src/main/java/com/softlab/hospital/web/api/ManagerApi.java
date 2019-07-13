@@ -5,7 +5,9 @@ import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
 import com.softlab.hospital.common.util.VerifyUtil;
+import com.softlab.hospital.core.model.Info;
 import com.softlab.hospital.core.model.User;
+import com.softlab.hospital.core.model.vo.DoctorVo;
 import com.softlab.hospital.core.model.vo.UpList;
 import com.softlab.hospital.service.ManagerService;
 import com.softlab.hospital.service.UserService;
@@ -58,7 +60,6 @@ public class ManagerApi {
         } catch (HosExection e){
             return new RestData(1, e.getMessage());
         }
-
     }
 
     @RequestMapping(value = "/user/{systemId}", method = RequestMethod.DELETE)
@@ -102,7 +103,7 @@ public class ManagerApi {
 
         try{
             return managerService.insertUser(user);
-        } catch (HosExection e){
+        } catch (Exception e){
             return new RestData(1, e.getMessage());
         }
     }
@@ -112,14 +113,116 @@ public class ManagerApi {
     public RestData getAllDcotor(HttpServletRequest request){
         logger.info("getAllDoctor : ");
 
-        if (3 == VerifyUtil.verifyType(request) ){
-            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
-        }
-
         try{
             return new RestData(managerService.selectAllDoctor());
         } catch (HosExection e){
             return new RestData(1, e.getMessage());
+        }
+    }
+
+
+    @RequestMapping(value = "/info-province", method = RequestMethod.GET)
+    public RestData selectAllProvince(HttpServletRequest request) {
+        logger.info("GET selectAllProvince : ");
+
+        try {
+            return managerService.selectAllProvince();
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info-city", method = RequestMethod.POST)
+    public RestData selectAllCity(@RequestBody(required = false) Info info, HttpServletRequest request) {
+        logger.info("GET selectAllCity : " + JsonUtil.getJsonString(info));
+
+        try {
+            return managerService.selectAllcity(info);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info-hospital", method = RequestMethod.POST)
+    public RestData selectAllHospital(@RequestBody(required = false) Info info, HttpServletRequest request) {
+        logger.info("GET selectAllHospital : " + JsonUtil.getJsonString(info));
+
+        try {
+            return managerService.selectAllHospital(info);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info-room", method = RequestMethod.POST)
+    public RestData selectAllRoom(@RequestBody(required = false) Info info, HttpServletRequest request) {
+        logger.info("GET selectAllRoom : " + JsonUtil.getJsonString(info));
+
+        try {
+            return managerService.selectAllRoom(info);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+
+    @RequestMapping(value = "/info-add", method = RequestMethod.POST)
+    public RestData postAddInfo(@RequestBody Info info, HttpServletRequest request) {
+        logger.info("POST postAddInfo : " + JsonUtil.getJsonString(info));
+
+
+        try {
+            return managerService.postAdd(info);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info-all", method = RequestMethod.GET)
+    public RestData selectAll(HttpServletRequest request) {
+        logger.info("GET selectAll : ");
+
+
+        try {
+            return managerService.selectAll();
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info/{systemId}", method = RequestMethod.GET)
+    public RestData selectByPrimaryKey(@PathVariable(value = "systemId") Long systemId, HttpServletRequest request) {
+        logger.info("GET selectAll : " + systemId);
+
+
+        try {
+            return managerService.selectByPrimaryKey(systemId);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info/{systemId}", method = RequestMethod.DELETE)
+    public RestData deleteByPrimaryKey(@PathVariable(value = "systemId") Long systemId, HttpServletRequest request) {
+        logger.info("DELETE deleteByPrimaryKey : " + systemId);
+
+
+        try {
+            return managerService.deleteByPrimaryKey(systemId);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/info-update", method = RequestMethod.PUT)
+    public RestData updateByPrimaryKey(@RequestBody Info info, HttpServletRequest request) {
+        logger.info("PUT updateByPrimaryKey : " + JsonUtil.getJsonString(info));
+
+
+        try {
+            return managerService.updateByPrimaryKey(info);
+        } catch (HosExection e) {
+            return new RestData(1, e.getLocalizedMessage());
         }
     }
 

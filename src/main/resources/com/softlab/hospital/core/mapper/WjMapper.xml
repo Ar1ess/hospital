@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softlab.hospital.core.mapper.WjMapper">
+  <resultMap id="BaseResultMap" type="com.softlab.hospital.core.model.Wj">
+    <id column="system_id" jdbcType="BIGINT" property="systemId" />
+    <result column="doc_id" jdbcType="BIGINT" property="docId" />
+    <result column="doc_file" jdbcType="VARCHAR" property="docFile" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wj
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByDocId" parameterType="com.softlab.hospital.core.model.Doctor">
+    delete from wj
+    where doc_id = #{docId}
+  </delete>
+
+  <insert id="insert" parameterType="com.softlab.hospital.core.model.Wj">
+    insert into wj (doc_id, doc_file)
+    values (#{docId,jdbcType=BIGINT}, #{docFile,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.softlab.hospital.core.model.Wj">
+    update wj
+    set doc_id = #{docId,jdbcType=BIGINT},
+      doc_file = #{docFile,jdbcType=VARCHAR}
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateFileByDocIdAndFileName" parameterType="com.softlab.hospital.core.model.Wj">
+    update wj
+    set doc_file = #{docFile,jdbcType=VARCHAR}
+    where doc_id = #{docId,jdbcType=BIGINT} and doc_file = #{docFile}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select system_id, doc_id, doc_file
+    from wj
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select system_id, doc_id, doc_file
+    from wj
+  </select>
+  <select id="selectFilesByPrimaryKey" resultType="java.lang.String">
+    select distinct doc_file
+    from wj
+    where doc_id = #{systemId}
+  </select>
+</mapper>

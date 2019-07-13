@@ -30,7 +30,7 @@
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="mapper" targetProject="src\main\java"/>
 
-        <table tableName="info">
+        <table tableName="wj">
             <generatedKey column="id" sqlStatement="MySql"/>
         </table>
     </context>

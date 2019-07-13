@@ -37,7 +37,7 @@ public class SuperManagerApi {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/super-select", method = RequestMethod.GET)
+    @RequestMapping(value = "/super-select", method = RequestMethod.POST)
     public RestData selectDoctorByCondition(@RequestBody DoctorVo doctorVo, HttpServletRequest request) {
         logger.info("GET selectDoctorByCondition : " + JsonUtil.getJsonString(doctorVo));
 
@@ -63,7 +63,7 @@ public class SuperManagerApi {
         try {
             return superManagerService.postAddManager(user);
         } catch (HosExection e) {
-            return new RestData(1, e.getLocalizedMessage());
+            return new RestData(1, e.getMessage());
         }
     }
 
@@ -113,7 +113,7 @@ public class SuperManagerApi {
     }
 
     @RequestMapping(value = "/manager-part", method = RequestMethod.POST)
-    public RestData selectAllManager(@RequestBody User user, HttpServletRequest request) {
+    public RestData selectPartManager(@RequestBody User user, HttpServletRequest request) {
         logger.info("GET selectPartManager : ");
 
         if (1 != VerifyUtil.verifyType(request)){

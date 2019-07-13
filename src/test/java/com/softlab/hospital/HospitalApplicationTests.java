@@ -8,6 +8,7 @@ import com.softlab.hospital.core.mapper.UserMapper;
 import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.core.model.User;
 import com.softlab.hospital.core.model.vo.DoctorVo;
+import com.softlab.hospital.service.impl.UserServiceImpl;
 import com.softlab.hospital.web.api.UserApi;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -32,14 +33,23 @@ public class HospitalApplicationTests {
 
 	@Autowired
 	private DoctorMapper doctorMapper;
+	@Autowired
+	private UserServiceImpl userService;
+
+	@Autowired
+	private UserApi userApi;
 
 	@Test
-	public void testSelectByCondition() {
+	public void testSelectByCondition() throws Exception {
 
-		List <Doctor> list = doctorMapper.selectAllDoctor("100001");
-		for (Doctor list0 : list){
-			System.out.println(list0);
-		}
+		Doctor doctor = new Doctor();
+		doctor.setDocHospital("1");
+		doctor.setDocCity("1");
+		doctor.setDocProvince("1");
+		doctor.setDocRoom("1");
+		doctor.setDocName("aaa");
+		doctor.setDocTag("1");
+		//userApi.insertDoctor(null, doctor);
 	}
 
 }

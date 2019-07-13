@@ -1,10 +1,12 @@
 package com.softlab.hospital.web.api;
 
+import com.softlab.hospital.common.ErrorMessage;
 import com.softlab.hospital.common.HosExection;
 import com.softlab.hospital.common.RestData;
 import com.softlab.hospital.common.util.JsonUtil;
 import com.softlab.hospital.common.util.UploadUtil;
 import com.softlab.hospital.core.model.Doctor;
+import com.softlab.hospital.core.model.vo.DoctorVo;
 import com.softlab.hospital.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,36 +47,25 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/doctor", method = RequestMethod.PUT)
-    public RestData updateDoctor(@RequestBody Doctor doctor) {
-        logger.info("update doctor: " + JsonUtil.getJsonString(doctor));
+    public RestData updateDoctor(@RequestPart(value = "file", required = false) MultipartFile[] files, @RequestPart(value = "doctor") Doctor doctor) throws Exception {
+        logger.info("PUT updateDoctor : " + JsonUtil.getJsonString(doctor));
 
-        try{
-            return userService.updateDoctor(doctor);
-        } catch (HosExection e){
+        try {
+            return userService.updateDoctor(files, doctor);
+        } catch (Exception e) {
             return new RestData(1, e.getMessage());
         }
-
     }
 
     @RequestMapping(value = "/doctor", method = RequestMethod.POST)
-    public RestData insertDoctor(@RequestParam("file") MultipartFile file, @RequestBody Doctor doctor) throws Exception {
+    public RestData insertDoctor(@RequestPart(value = "file", required = false) MultipartFile[] files, @RequestPart(value = "doctor", required = false) Doctor doctor)  {
         logger.info("insert doctor: " + JsonUtil.getJsonString(doctor));
 
-        //文件上传
-        String fileName = UploadUtil.upload(file);
-        logger.info("filename: " + fileName);
-        doctor.setDocFile(fileName);
-
-        //日期上传
-        Date d = new Date();
-        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-        String s = f.format(d);
-        doctor.setDocDate(s);
-        logger.info("date:" + s);
-
-        try{
-            return userService.insertDoctor(doctor);
-        } catch (HosExection e){
+        logger.info("date:" + doctor.getDocDate());
+        logger.info("files length: " + files.length);
+        try {
+            return userService.insertDoctor(files, doctor);
+        } catch (Exception e) {
             return new RestData(1, e.getMessage());
         }
     }
@@ -91,11 +82,11 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public RestData searchDoctor(@RequestBody Doctor doctor){
-        logger.info("searchDoctor: " + JsonUtil.getJsonString(doctor));
+    public RestData searchDoctor(@RequestBody DoctorVo doctorVo){
+        logger.info("searchDoctor: " + JsonUtil.getJsonString(doctorVo));
 
         try {
-            return new RestData(userService.selectByContidion(doctor));
+            return new RestData(userService.selectByContidion(doctorVo));
         } catch (HosExection e){
             return new RestData(1, e.getMessage());
         }

@@ -55,9 +55,9 @@ public class SuperManagerServiceImpl implements SuperManagerService {
         user.setUserType(2);
         int status = userMapper.insert(user);
         if(0 < status) {
-            return new RestData(0,"插入成功");
+            return new RestData(0,"添加成功");
         } else {
-            return new RestData(1,"插入失败");
+            throw new HosExection("添加失败");
         }
     }
 

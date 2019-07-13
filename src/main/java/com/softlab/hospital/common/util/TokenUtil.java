@@ -1,14 +1,11 @@
 package com.softlab.hospital.common.util;
 
 import com.softlab.hospital.core.mapper.UserMapper;
-import com.softlab.hospital.core.model.Doctor;
 import com.softlab.hospital.core.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.print.attribute.DocAttribute;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +25,6 @@ public class TokenUtil {
     public static User getUserByToken(HttpServletRequest request){
         User user = null;
         String token = request.getHeader("token");
-
         if(null != token) {
             User userCondition = new User();
             userCondition.setUserToken(token);

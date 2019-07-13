@@ -17,10 +17,10 @@
   </delete>
 
   <insert id="insert" parameterType="com.softlab.hospital.core.model.User">
-    insert into user (system_id, user_id, user_password, 
+    insert into user (user_id, user_password,
       user_name, user_token, user_type
       )
-    values (#{systemId,jdbcType=INTEGER}, #{userId,jdbcType=CHAR}, #{userPassword,jdbcType=VARCHAR}, 
+    values ( #{userId,jdbcType=CHAR}, #{userPassword,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{userToken,jdbcType=VARCHAR}, #{userType,jdbcType=TINYINT}
       )
   </insert>
