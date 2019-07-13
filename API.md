@@ -25,7 +25,8 @@
      - [1.5.3. 添加管理员信息](#153-添加管理员信息)
      - [1.5.4. 修改管理员信息](#154-修改管理员信息)
      - [1.5.5. 删除管理员信息](#155-删除管理员信息)
-     - [1.5.6. 查询管理员信息](#156-查询管理员信息)
+     - [1.5.6. 查询所有管理员](#156-查询所有管理员)
+     - [1.5.7. 查询管理员信息](#157-查询管理员信息)
    
 
 ##  1.1. tips
@@ -103,8 +104,6 @@
 }
 ```
 
----
-
 ### 1.3.2 修改医生信息
 
 - PUT  /doctor
@@ -126,8 +125,6 @@
 }
 ```
 
----
-
 ### 1.3.3 删除医生信息
 
 - DELETE  /doctor/{systemId}
@@ -140,8 +137,6 @@
   "message": "删除成功"
 }
 ```
-
----
 
 ### 1.3.4 查询自己的医生信息
 
@@ -172,8 +167,6 @@
   ]
 }
 ```
-
----
 
 ##  1.4. 管理员系统 
 
@@ -223,8 +216,6 @@
 }
 ```
 
----
-
 ### 1.4.2. 添加市场人员信息
 
 - POST /user
@@ -248,11 +239,9 @@
 }
 ```
 
----
-
 ### 1.4.3. 修改市场人员信息
 
-- PUT  /doctor
+- PUT  /user
 
 - payload : 
 
@@ -272,8 +261,6 @@
 }
 ```
 
----
-
 ### 1.4.4. 删除市场人员信息
 
 - DELETE  /doctor/{systemId}
@@ -286,8 +273,6 @@
   "message": "删除成功"
 }
 ```
-
----
 
 ### 1.4.5. 查询市场人员信息
 
@@ -310,8 +295,6 @@
 }
 ```
 
----
-
 ### 1.4.6. 维护总金额，患者总数
 
 - PUT  /update 
@@ -333,14 +316,186 @@
 }
 ```
 
----
-
 ### 1.4.7. 增加省、市、医院、科室
+- POST /info-add
+- payload : 
+```json
+{
+  "province" : "省三",
+  "city" : "驻马店市",
+  "hospital" : "aaa",
+  "room" : "lala"
+}
+```
+
+- return 
+```json
+{
+  "code": 0,
+  "message": "插入成功"
+}
+```
 ### 1.4.8. 删除省、市、医院、科室
+- DELETE   /info/{systemId}
+- return 
+```json
+{
+  "code": 0,
+  "message": "删除成功"
+}
+```
 ### 1.4.9. 修改省、市、医院、科室
+- PUT  /info-update
+- payload : 
+```json
+{
+  "province" : "省三",
+  "city" : "驻马店市",
+  "hospital" : "aaa",
+  "room" : "lala"
+}
+```
+- return 
+```json
+{
+  "code": 0,
+  "message": "更新成功"
+}
+```
+
 ### 1.4.10. 查询省、市、医院、科室
+- 已经写过了，就是省和市的查询
 ## 1.5. 超级管理员系统
+```json
+{
+  "docProvince" : "aa",
+  "docCity" : "aa",
+  "docHospital" : "aa",
+  "docRoom" : "aa"
+}
+```
+- return :
+```json
+{
+    "code": 0,
+    "data": {
+        "totalMoney": 0.0,
+        "totalIncMoney": 0.0,
+        "totalPeople": 0,
+        "totalIncPeople": 0
+    }
+}
+```
 ### 1.5.3. 添加管理员信息
+
+- POST /manager
+- payload :
+
+```json
+{
+    "userName" : "008",
+    "userId" : "008",
+    "userPassword" : "123456"
+}
+```
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "插入成功"
+}
+```
+
 ### 1.5.4. 修改管理员信息
+
+- PUT  /manager
+
+- payload : 
+
+```json
+{
+   "systemId" : 4,
+   "userName" : "009"
+}
+```
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "修改成功"
+}
+```
+
 ### 1.5.5. 删除管理员信息
-### 1.5.6. 查询管理员信息
+
+- DELETE  /manager/{systemId}
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "message": "删除成功"
+}
+```
+
+### 1.5.6. 查询所有管理员
+
+- GET  /manager-all
+
+- return :
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "systemId": 5,
+      "userPassword": "123456",
+      "userType": 2,
+      "userName": "008",
+      "userId": "008"
+    },
+    {
+      "systemId": 6,
+      "userPassword": "123456",
+      "userType": 2,
+      "userName": "009",
+      "userId": "009"
+    }
+  ]
+}
+```
+
+### 1.5.7. 查询管理员信息
+
+- POST  /manager-part
+
+- payload : 
+
+```json
+{
+   "userName" : "009"
+}
+```
+
+- return : 
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "systemId": 6,
+      "userPassword": "123456",
+      "userType": 2,
+      "userName": "009",
+      "userId": "009"
+    }
+  ]
+}
+``` 
+
