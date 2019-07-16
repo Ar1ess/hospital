@@ -444,7 +444,7 @@
 ```json
 {
   "province" : "省2",
-  "city" "市2"
+  "city" : "市2"
 }
 ```
 - return :
@@ -469,8 +469,8 @@
 ```json
 {
   "province" : "省2",
-  "city" "市2",
-  "hospital" "哈医大二院"
+  "city" : "市2",
+  "hospital" : "哈医大二院"
 }
 ```
 - return :
