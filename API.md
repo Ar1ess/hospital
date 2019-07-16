@@ -44,9 +44,9 @@
   
 - url : host + uri
   - example :
-    - host : <http://hospital.softlab.com>
+    - host : <http://139.196.75.14/hospital>
     - uri : /login
-    - url : <http://hospital.softlab.com/login>
+    - url : <http://139.196.75.14/hospital/login>
     
 ---
 
@@ -80,7 +80,7 @@
 
 ### 1.3.1 添加医生信息
 
-- POST /user
+- POST /doctor
 - payload :
 - docTag表示所属的市场人员编号，市场人员在添加医生时需要标明哪个医生是自己的添加的。所以加个docTag
 ```json
@@ -279,7 +279,7 @@
 ```json
 {
    "systemId" : 2,
-   "userName" : "qwe"
+   "userName" : "qwe",
    "userId" : "007",
    "userPassword" : "123456"
 }
