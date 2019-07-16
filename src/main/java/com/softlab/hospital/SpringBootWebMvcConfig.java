@@ -4,14 +4,16 @@ import com.softlab.hospital.web.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Created by LiXiwen on 2019/7/3 18:14.
+ * @author LiXiwen
+ * @date 2019/7/3 18:14
  **/
-@Configuration
+@Component
 public class SpringBootWebMvcConfig implements WebMvcConfigurer {
     private final TokenInterceptor tokenInterceptor;
 

@@ -12,7 +12,7 @@
   </delete>
   <delete id="deleteByDocId" parameterType="com.softlab.hospital.core.model.Doctor">
     delete from wj
-    where doc_id = #{docId}
+    where system_id = #{systemId}
   </delete>
 
   <insert id="insert" parameterType="com.softlab.hospital.core.model.Wj">
