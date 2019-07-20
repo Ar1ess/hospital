@@ -44,9 +44,9 @@
   
 - url : host + uri
   - example :
-    - host : <http://139.196.75.14/hospital>
+    - host : <http://localhost/hospital>
     - uri : /login
-    - url : <http://139.196.75.14/hospital/login>
+    - url : <http://localhost/hospital/login>
     
 ---
 
