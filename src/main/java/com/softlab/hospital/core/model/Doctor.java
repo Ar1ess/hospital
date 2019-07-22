@@ -2,6 +2,8 @@ package com.softlab.hospital.core.model;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * Created by LiXiwen on 2019/7/3 17:25.
  **/
@@ -60,12 +62,12 @@ public class Doctor {
     /**
      * 总金额
      */
-    private Double docSumMoney;
+    private BigDecimal docSumMoney;
 
     /**
      * 月增金额
      */
-    private Double docIncMoney;
+    private BigDecimal docIncMoney;
 
     /**
      * 医生信息文件

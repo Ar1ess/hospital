@@ -113,6 +113,10 @@ public class ManagerApi {
     public RestData getAllDcotor(HttpServletRequest request){
         logger.info("getAllDoctor : ");
 
+        if (3 == VerifyUtil.verifyType(request) ){
+            return new RestData(1, ErrorMessage.OPERATIOND_ENIED);
+        }
+        
         try{
             return new RestData(managerService.selectAllDoctor());
         } catch (HosExection e){

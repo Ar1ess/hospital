@@ -12,8 +12,8 @@
     <result column="doc_phone" jdbcType="VARCHAR" property="docPhone" />
     <result column="doc_sum_patient" jdbcType="BIGINT" property="docSumPatient" />
     <result column="doc_inc_patient" jdbcType="INTEGER" property="docIncPatient" />
-    <result column="doc_sum_money" jdbcType="DOUBLE" property="docSumMoney" />
-    <result column="doc_inc_money" jdbcType="DOUBLE" property="docIncMoney" />
+    <result column="doc_sum_money" jdbcType="DECIMAL" property="docSumMoney" />
+    <result column="doc_inc_money" jdbcType="DECIMAL" property="docIncMoney" />
     <result column="doc_file" jdbcType="VARCHAR" property="docFile" />
     <result column="doc_tag" jdbcType="TINYINT" property="docTag" />
   </resultMap>
@@ -30,7 +30,7 @@
     values (#{systemId,jdbcType=INTEGER}, #{docProvince,jdbcType=VARCHAR}, #{docCity,jdbcType=VARCHAR}, 
       #{docHospital,jdbcType=VARCHAR}, #{docRoom,jdbcType=VARCHAR}, #{docName,jdbcType=VARCHAR}, 
       #{docDate,jdbcType=VARCHAR}, #{docPhone,jdbcType=VARCHAR}, #{docSumPatient,jdbcType=BIGINT}, 
-      #{docIncPatient,jdbcType=INTEGER}, #{docSumMoney,jdbcType=DOUBLE}, #{docIncMoney,jdbcType=DOUBLE}, 
+      #{docIncPatient,jdbcType=INTEGER}, #{docSumMoney,jdbcType=DECIMAL}, #{docIncMoney,jdbcType=DECIMAL},
       #{docFile,jdbcType=VARCHAR}, #{docTag,jdbcType=TINYINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.softlab.hospital.core.model.Doctor">
@@ -61,10 +61,10 @@
             doc_inc_patient = #{docIncPatient,jdbcType=INTEGER},
         </if>
         <if test="docSumMoney != null">
-            doc_sum_money = #{docSumMoney,jdbcType=DOUBLE},
+            doc_sum_money = #{docSumMoney,jdbcType=DECIMAL},
         </if>
         <if test="docIncMoney != null">
-            doc_inc_money = #{docIncMoney,jdbcType=DOUBLE},
+            doc_inc_money = #{docIncMoney,jdbcType=DECIMAL},
         </if>
         <if test="docFile != null">
             doc_file = #{docFile,jdbcType=VARCHAR},
