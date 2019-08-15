@@ -31,7 +31,7 @@
         hospital = #{hospital,jdbcType=VARCHAR},
       </if>
       <if test="null != room and '' != room" >
-        room = #{room,jdbcType=VARCHAR}
+        room = #{room,jdbcType=VARCHAR},
       </if>
       system_id = #{systemId,jdbcType=BIGINT}
     where system_id = #{systemId,jdbcType=BIGINT}
